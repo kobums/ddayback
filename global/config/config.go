@@ -14,6 +14,11 @@ type Config struct {
 type ServerConfig struct {
 	Port string
 	Env  string
+	// APIKey 는 쓰기 요청(POST/PUT/DELETE/PATCH)에 요구하는 X-API-Key 값 (env API_KEY).
+	// 비어 있으면 검사하지 않는다(개발용, 기동 시 경고).
+	APIKey string
+	// CORSAllowedOrigins 는 쉼표 구분 허용 origin 목록 (env CORS_ALLOWED_ORIGINS). 비어 있으면 "*"(경고).
+	CORSAllowedOrigins string
 }
 
 type DatabaseConfig struct {
@@ -34,6 +39,9 @@ func LoadConfig() {
 		Server: ServerConfig{
 			Port: getEnv("PORT", "8080"),
 			Env:  getEnv("ENV", "development"),
+
+			APIKey:             os.Getenv("API_KEY"),
+			CORSAllowedOrigins: os.Getenv("CORS_ALLOWED_ORIGINS"),
 		},
 		Database: DatabaseConfig{
 			Host:         getEnv("DB_HOST", "localhost"),
