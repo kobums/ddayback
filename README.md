@@ -27,6 +27,11 @@ cp .env.example .env
 # .env 파일을 편집하여 데이터베이스 정보 입력
 ```
 
+### 보안 관련 환경변수
+- `API_KEY` — 설정하면 쓰기 요청(POST/PUT/DELETE, `/api/v1`·`/rest`)에 `X-API-Key` 헤더가 일치해야 한다.
+  비우면 검사하지 않는다(개발용, 기동 시 경고). 웹/앱 번들에 넣는 키는 추출 가능하므로 약한 장벽일 뿐이다.
+- `CORS_ALLOWED_ORIGINS` — 허용 origin(쉼표 구분). 비우면 `*`(개발용, 기동 시 경고).
+
 ### 4. 의존성 설치 및 실행
 ```bash
 go mod tidy
